@@ -1,0 +1,10 @@
+saved_checkpoints : VR_encoder_ckeckpoints
+logs : VR_encoder_logs
+num_train_epochs : 50
+
+optimizer:
+  params:
+    eps: 1.0e-08
+    lr: 3e-4
+    weight_decay: 0.0
+  type: Adam

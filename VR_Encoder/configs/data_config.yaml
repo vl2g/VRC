@@ -1,0 +1,7 @@
+per_gpu_train_batch_size: 64
+xml_file_path: /DATA/trevant/VrR-VG/VrR-VG
+npy_file_path: /DATA/trevant/FRCNN_feature_extraction/all_vg_frcnn
+saved_dir: /DATA/trevant/vrc_generated_data/saved_vr_encoder_relations
+train_predicates_path: data/vrrvg_predicates_train.json
+saved_vtranse_input: True # true to use saved one, false for ?
+training_split_ratio : 0.8

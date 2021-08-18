@@ -1,0 +1,11 @@
+RESULT_FOLDER: SimilarityNetworkResults/
+SUBJECT_ANCHORED: False # subject anchored for each image
+ANCHOR_IMAGE: True
+BATCH_SIZE: 2
+RelationNET_CHECKPOINT: /DATA/trevant/Vaibhav/tempVRC/SimilarityNetworkWeights/SimilarityNetworkVREncodercheckpoint_1.pth #/DATA/trevant/Vaibhav/tempVRC/SimilarityNetworkWeights/SimilarityNetworkConcatcheckpoint.pth #/DATA/trevant/Vaibhav/tempVRC/SimilarityNetworkWeights/SimilarityNetworkVREncodercheckpoint_1.pth
+SIMILARITY_NET_CONCAT_CHECKPOINT : /DATA/trevant/Vaibhav/tempVRC/SimilarityNetworkWeights/SimilarityNetworkConcatcheckpoint.pth
+BAG_SIZE: 2
+SIMILARITY: cosine # options are relation_net and cosine
+CONCAT: False # use concat network or not
+top_k: 5
+SAVE_OUTPUT: False

@@ -1,0 +1,19 @@
+{
+    "biting": 0,
+    "petting": 1,
+    "sniffing": 2,
+    "pointing": 3,
+    "placed on": 4,
+    "stacked on": 5,
+    "balancing on": 6,
+    "drawn on": 7,
+    "sewn on": 8,
+    "sticking out of": 9,
+    "at bottom of": 10,
+    "following": 11,
+    "entering": 12,
+    "leaning on": 13,
+    "in corner of": 14,
+    "surrounded by": 15,
+    "in center of": 16
+}

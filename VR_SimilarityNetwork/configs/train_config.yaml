@@ -1,0 +1,10 @@
+epochs: 10
+batch_size: 1
+NETWORK: SimilarityNetworkConcat # options are : SimilarityNetworkVREncoder and SimilarityNetworkConcat
+NETWORK_WEIGHTS_PATH: SimilarityNetworkWeights/
+Dataset: VrRVG
+scheduler:
+  mode: max
+  factor: 0.1
+  patience: 0
+  verbose: True

@@ -1,0 +1,9 @@
+SAMPLE_PER_RELATION: 1 # samples/bags for each predicates , total train predicates = 100
+XML_FILE_PATH_VrRVG: /DATA/trevant/VrR-VG/VrR-VG # xml files for VrRVG
+NPY_FILE_PATH: /DATA/trevant/FRCNN_feature_extraction/all_vg_frcnn
+DATASET: VrRVG # options are VrRVG and VG150 
+object_vocab: /DATA/trevant/Vaibhav/tempVRC/data/objects_vocab.txt
+VREncoder_Net_Checkpoint: /DATA/trevant/tempVRC/VR_encoder_checkpoints/checkpoint_2.pt
+train_predicates_path : /DATA/trevant/tempVRC/data/vrrvg_predicates_train.json
+VREncoderEmbeddings: VRConcat # VTransE and VRConcat
+VREncoderConfig: /DATA/trevant/Vaibhav/tempVRC/VR_Encoder/configs/model_config.yaml

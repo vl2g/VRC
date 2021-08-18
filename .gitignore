@@ -1,0 +1,5 @@
+*.npy
+*.pyc
+*.txt
+*.pt
+*.pth

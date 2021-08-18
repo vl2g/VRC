@@ -1,0 +1,6 @@
+model_name: VTransE
+index_sp: True
+index_cls: True
+num_pred: 100
+output_size: 500
+input_size: 500

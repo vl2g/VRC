@@ -1,10 +1,9 @@
-XML_FILE_PATH_VrRVG: /DATA/trevant/VrR-VG/VrR-VG # xml files for VrRVG
-NPY_FILE_PATH: /DATA/trevant/FRCNN_feature_extraction/all_vg_frcnn
+XML_FILE_PATH_VrRVG: VrR-VG # xml files for VrRVG
+NPY_FILE_PATH: all_vg_frcnn
 DATASET: VrRVG # options are VrRVG and VG150 
 VREncoderConfig: VR_Encoder/configs/model_config.yaml
-VREncoder_Net_Checkpoint: /DATA/trevant/tempVRC/VR_encoder_checkpoints/checkpoint_2.pt
-object_vocab: /DATA/trevant/Vaibhav/tempVRC/data/objects_vocab.txt
+VREncoder_Net_Checkpoint: VR_encoder_checkpoints/checkpoint_2.pt
 SAMPLE_PER_RELATION: 1 # samples/bags for each predicates , total train predicates = 100
-test_predicates_path : /DATA/trevant/tempVRC/data/vrrvg_predicates_test.json
-VisualGenomeImageDir1: /DATA/mishra.4/visual_genome/VG_100K/
-VisualGenomeImageDir2: /DATA/mishra.4/visual_genome/VG_100K_2/
+test_predicates_path : data/vrrvg_predicates_test.json
+VisualGenomeImageDir1: visual_genome/VG_100K/
+VisualGenomeImageDir2: visual_genome/VG_100K_2/

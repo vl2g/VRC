@@ -1,12 +1,25 @@
-# Requires vqa-maskrcnn-benchmark to be built and installed
-# Category mapping for visual genome can be downloaded from
-# https://dl.fbaipublicfiles.com/pythia/data/visual_genome_categories.json
-# When the --background flag is set, the index saved with key "objects" in
-# info_list will be +1 of the Visual Genome category mapping above and 0
-# is the background class. When the --background flag is not set, the
-# index saved with key "objects" in info list will match the Visual Genome
-# category mapping.
+###################################################
+# Steps before running the scripts:
+	
+# 1. first install maskrcnn-benchmark : FRCNN Model
+	
+# $ git clone https://gitlab.com/meetshah1995/vqa-maskrcnn-benchmark.git
+# $ cd vqa-maskrcnn-benchmark
+# $ python setup.py build
+# $ python setup.py develop
 
+# 2. download pre-trained detectron weights
+
+# $ mkdir detectron_weights
+# $ wget -O detectron_weights/detectron_model.pth  https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.pth
+# $ wget -O detectron_weights/detectron_model.yaml  https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.yaml
+
+# NOTE: just modify the code in /content/vqa-maskrcnn-benchmark/maskrcnn_benchmark/utils/imports.py, change PY3 to PY37
+
+# to run the script
+# $ python faster_rcnn_script.py --image_dir=<path to images directory>
+
+###################################################
 
 import argparse
 import glob
@@ -23,8 +36,6 @@ from maskrcnn_benchmark.modeling.detector import build_detection_model
 from maskrcnn_benchmark.structures.image_list import to_image_list
 from maskrcnn_benchmark.utils.model_serialization import load_state_dict
 
-
-
 class FeatureExtractor:
     MODEL_URL = (
         "https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.pth"
@@ -35,21 +46,10 @@ class FeatureExtractor:
     MAX_SIZE = 1333
     MIN_SIZE = 800
 
-    def __init__(self, img_dir, output_folder):
+    def __init__(self):
         self.args = self.get_parser().parse_args()
         self.detection_model = self._build_detection_model()
-        # overwriting input output folders
-        self.args.image_dir = img_dir
-        self.args.output_folder = output_folder
         os.makedirs(self.args.output_folder, exist_ok=True)
-
-    # def _try_downloading_necessities(self):
-    #     if self.args.model_file is None:
-    #         print("Downloading model and configuration")
-    #         self.args.model_file = self.MODEL_URL.split("/")[-1]
-    #         self.args.config_file = self.CONFIG_URL.split("/")[-1]
-    #         download_file(self.MODEL_URL)
-    #         download_file(self.CONFIG_URL)
 
     def get_parser(self):
         parser = argparse.ArgumentParser()
@@ -64,9 +64,9 @@ class FeatureExtractor:
             "--num_features", type=int, default=100, help="Number of features to extract."
         )
         parser.add_argument(
-            "--output_folder", type=str, default="./output_demo", help="Output folder"
+            "--output_folder", type=str, default="./all_vg_frcnn", help="Output folder"
         )
-        parser.add_argument("--image_dir", default="./demo_input", type=str, help="Image directory or file")
+        parser.add_argument("--image_dir", default="./input_images", type=str, help="Image directory or file")
         parser.add_argument(
             "--feature_name", type=str, help="The name of the feature to extract",
             default="fc6",
@@ -172,16 +172,15 @@ class FeatureExtractor:
             bbox = output[0]["proposals"][i][keep_boxes].bbox / im_scales[i]
             # Predict the class label using the scores
             objects = torch.argmax(scores[keep_boxes], dim=1)
-            class_scores = scores[keep_boxes]
 
             info_list.append(
                 {
                     "bbox": bbox.cpu().numpy(),
                     "num_boxes": num_boxes.item(),
                     "objects": objects.cpu().numpy(),
-                    "class_scores" : class_scores.cpu().numpy(),
                     "image_width": im_infos[i]["width"],
                     "image_height": im_infos[i]["height"],
+                    "class_scores" : scores[keep_boxes].cpu().numpy()
                 }
             )
 
@@ -233,34 +232,13 @@ class FeatureExtractor:
             features, infos = self.get_detectron_features([image_dir])
             self._save_feature(image_dir, features[0], infos[0])
         else:
-            files = glob.glob(os.path.join(image_dir, "*.jpg"))
+            files = glob.glob(os.path.join(image_dir, "*.*"))
+           
             for chunk in self._chunks(files, self.args.batch_size):
-                chunk_updated=[] # chunk after removing the images that are already been done
-                for one_img in chunk:
-                    try:
-                        im=Image.open(one_img)
-                        img_name=one_img.split("/")
-                        img_name=img_name[-1]
-                        npy_name=img_name.split(".")
-                        npy_name_str=str(npy_name[0])
-                        npy_name=npy_name_str+".npy"
-                        
-                        npy_path=os.path.join(self.args.output_folder,npy_name)
-                        
-                        if(not(os.path.isfile(npy_path))):
-                            chunk_updated.append(one_img)
-                    except:
-                        pass
-                
-                if(len(chunk_updated)):
-                    features, infos = self.get_detectron_features(chunk_updated)
-                    for idx, file_name in enumerate(chunk_updated):
-                        self._save_feature(file_name, features[idx], infos[idx])
-
-
+                features, infos = self.get_detectron_features(chunk)
+                for idx, file_name in enumerate(chunk):
+                    self._save_feature(file_name, features[idx], infos[idx])
+					
 if __name__ == "__main__":
-    # print("Main commented")
-    INPUT_IMAGE_DIR = "/DATA/trevant/VG_data/VG_100K_2"
-    OUTPUT_FOLDER = "VG_frcnn_out"
-    feature_extractor = FeatureExtractor(INPUT_IMAGE_DIR, OUTPUT_FOLDER)
+    feature_extractor = FeatureExtractor()
     feature_extractor.extract_features()

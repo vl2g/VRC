@@ -1,6 +1,6 @@
 epochs: 10
 batch_size: 1
-NETWORK: SimilarityNetworkConcat # options are : SimilarityNetworkVREncoder and SimilarityNetworkConcat
+NETWORK: SimilarityNetworkVREncoder # options are : SimilarityNetworkVREncoder and SimilarityNetworkConcat
 NETWORK_WEIGHTS_PATH: SimilarityNetworkWeights/
 Dataset: VrRVG
 scheduler:

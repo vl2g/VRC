@@ -1,5 +1,4 @@
 import os
-import argparse
 
 import torch
 from torch.optim import Adam
@@ -192,18 +191,12 @@ def train(config, train_dataset, model):
 
 def main():
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--first_argument", default=None,
-                        type=str, required=False, help="some string input here")
-    args = parser.parse_args()
-
     data_config = load_config_file(DATA_CONFIG_PATH)
     train_config = load_config_file(TRAINER_CONFIG_PATH)
     model_config = load_config_file(MODEL_CONFIG_PATH)
 
     # merging data and train configs to be given to train()
     config = OmegaConf.merge(train_config, data_config)
-    # config = OmegaConf.merge(OmegaConf.create(vars(args)), config) # merging cli arguments
 
     global logger
     # creating directories for saving checkpoints and logs

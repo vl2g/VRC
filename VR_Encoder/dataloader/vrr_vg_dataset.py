@@ -7,10 +7,6 @@ from utils.utils import read_json, mkdir
 from utils.sampling_utils import get_roi_index
 from tqdm import tqdm
 
-# TODO:
-# 1. remove cnt variables in the end after complete debugging
-# 2. role of self.class_imbalance
-
 
 class VrRVG_train_dataset(Dataset):
     def __init__(self, xml_file_path, npy_file_path, saved_vtranse_input, saved_dir, train_predicates_path):

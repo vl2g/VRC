@@ -1,5 +1,5 @@
 # VRC
-Official implementation of the Few-shot Visual Relationship Co-localization (ICCV 2021) paper
+**Official implementation of the Few-shot Visual Relationship Co-localization (ICCV 2021) paper**
 
 [project page](https://vl2g.github.io/projects/vrc/) | [paper](https://vl2g.github.io/projects/vrc/docs/VRC-ICCV2021.pdf)
 
@@ -74,3 +74,12 @@ If you find this code/paper  useful for your research, please consider citing.
   year      = "2021",
 }
 ```
+
+## Acknowledgements
+This repo uses https://gitlab.com/meetshah1995/vqa-maskrcnn-benchmark and scripts from https://github.com/facebookresearch/mmf for Faster R-CNN feature extraction. 
+
+Code provided by https://github.com/zawlin/cvpr17_vtranse and https://github.com/yangxuntu/vrd helped in implementing VR encoder.
+
+
+### Contact
+For any clarification, comment, or suggestion please create an issue or contact [Revant](https://revantteotia.github.io/), [Vaibhav](https://www.linkedin.com/in/vaibhav-mishra-iitj/) or [Mayank](https://www.linkedin.com/in/maheshwarimayank333/).
